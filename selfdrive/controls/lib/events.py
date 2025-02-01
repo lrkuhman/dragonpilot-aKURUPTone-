@@ -149,7 +149,7 @@ class Alert:
 
 class NoEntryAlert(Alert):
   def __init__(self, alert_text_2: str,
-               alert_text_1: str = _("openpilot Unavailable"),
+               alert_text_1: str = _("AutoDrive Unavailable"),
                visual_alert: car.CarControl.HUDControl.VisualAlert=VisualAlert.none):
     super().__init__(alert_text_1, alert_text_2, AlertStatus.normal,
                      AlertSize.mid, Priority.LOW, visual_alert,
@@ -168,7 +168,7 @@ class SoftDisableAlert(Alert):
 class UserSoftDisableAlert(SoftDisableAlert):
   def __init__(self, alert_text_2: str):
     super().__init__(alert_text_2),
-    self.alert_text_1 = _("openpilot will disengage")
+    self.alert_text_1 = _("AutoDrive will disengage")
 
 
 class ImmediateDisableAlert(Alert):
@@ -195,7 +195,7 @@ class NormalPermanentAlert(Alert):
 
 
 class StartupAlert(Alert):
-  def __init__(self, alert_text_1: str, alert_text_2: str = _("Always keep hands on wheel and eyes on road"), alert_status=AlertStatus.normal):
+  def __init__(self, alert_text_1: str, alert_text_2: str = _("Hey Landon! AutoDrive is ready to engage."), alert_status=AlertStatus.normal):
     super().__init__(alert_text_1, alert_text_2,
                      alert_status, AlertSize.mid,
                      Priority.LOWER, VisualAlert.none, AudibleAlert.none, 10.),
@@ -362,7 +362,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, AlertCallbackType]]] = {
   },
 
   EventName.startup: {
-    ET.PERMANENT: StartupAlert(_("Be ready to take over at any time"))
+    ET.PERMANENT: StartupAlert(_("Be ready to take over at any time."))
   },
 
   EventName.startupMaster: {
@@ -411,7 +411,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, AlertCallbackType]]] = {
   EventName.stockAeb: {
     ET.PERMANENT: Alert(
       _("BRAKE!"),
-      _("Stock AEB: Risk of Collision"),
+      _("FROM AEB: Risk of Collision"),
       AlertStatus.critical, AlertSize.full,
       Priority.HIGHEST, VisualAlert.fcw, AudibleAlert.none, 2.),
     ET.NO_ENTRY: NoEntryAlert(_("Stock AEB: Risk of Collision")),
@@ -498,8 +498,8 @@ EVENTS: Dict[int, Dict[str, Union[Alert, AlertCallbackType]]] = {
 
   EventName.driverUnresponsive: {
     ET.WARNING: Alert(
-      _("DISENGAGE IMMEDIATELY"),
-      _("Driver Unresponsive"),
+      _("DRIVER UNRESPONSIVE - DIAL 911"),
+      _("IF DRIVER DOES NOT RESPOND DIAL 911 IN CASE OF EMERGENCY"),
       AlertStatus.critical, AlertSize.full,
       Priority.HIGH, VisualAlert.steerRequired, AudibleAlert.warningImmediate, .1),
   },
